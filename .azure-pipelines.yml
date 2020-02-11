@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
-# vlc-android
+# debian_vlc_android
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: vlc_android
+- job: debian_vlc_android
   pool:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker build -t image vlc-android
-      docker save image > vlc-android.tar
-  - publish: $(System.DefaultWorkingDirectory)/vlc-android.tar
-    artifact: vlc-android
+      docker build -t image debian-vlc-android
+      docker save image > debian-vlc-android.tar
+  - publish: $(System.DefaultWorkingDirectory)/debian-vlc-android.tar
+    artifact: debian-vlc-android
