@@ -8,10 +8,7 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      cd vlc-android
-      ls -la
-      docker build -t image .
-      cd -
+      docker build -t image vlc-android
       docker save image > vlc-android.tar
   - publish: $(System.DefaultWorkingDirectory)/vlc-android.tar
     artifact: vlc-android
