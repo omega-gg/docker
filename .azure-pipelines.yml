@@ -1,0 +1,14 @@
+#--------------------------------------------------------------------------------------------------
+# vlc-android
+#--------------------------------------------------------------------------------------------------
+
+jobs:
+- job: vlc-android
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker build --tag image vlc-android
+      docker save image > vlc-android.tar
+  - publish: $(System.DefaultWorkingDirectory)/vlc-android.tar
+    artifact: vlc-android
