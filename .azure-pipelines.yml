@@ -9,7 +9,8 @@ jobs:
   steps:
   - bash: |
       cd vlc-android
-      docker build --tag image .
+      ls -la
+      docker build -t image .
       cd -
       docker save image > vlc-android.tar
   - publish: $(System.DefaultWorkingDirectory)/vlc-android.tar
