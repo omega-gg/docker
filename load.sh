@@ -21,10 +21,10 @@ getSource()
 
     rm artifacts.json
 
-    echo $artifacts | $grep -Po '"id":.*?[^\\]}}'         | \
-                      $grep $2                            | \
-                      $grep -Po '"downloadUrl":.*?[^\\]"' | \
-                      $grep -o '"[^"]*"$'                 | tr -d '"'
+    echo $artifacts | grep -Po '"id":.*?[^\\]}}'         | \
+                      grep $2                            | \
+                      grep -Po '"downloadUrl":.*?[^\\]"' | \
+                      grep -o '"[^"]*"$'                 | tr -d '"'
 }
 
 #--------------------------------------------------------------------------------------------------
@@ -36,20 +36,6 @@ if [ $# != 1 ] || [ $1 != "debian-vlc-android" ]; then
     echo "Usage: load <debian-vlc-android>"
 
     exit 1
-fi
-
-#--------------------------------------------------------------------------------------------------
-# Configuration
-#--------------------------------------------------------------------------------------------------
-# NOTE: We use ggrep on macOS because it supports Perl regexp.
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-
-    brew install grep
-
-    grep="ggrep"
-else
-    grep="grep"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -74,7 +60,9 @@ unzip -q artifact.zip
 
 rm artifact.zip
 
-mv $1/$1.tar ..
+ls -la
+
+mv $1/$1.tar .
 
 rm -rf $1
 
