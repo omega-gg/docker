@@ -6,4 +6,4 @@ docker images
 
 You can download and load docker images with:
 
-    bash load.sh <debian-vlc-android>
+    sh load.sh <debian-vlc-android>

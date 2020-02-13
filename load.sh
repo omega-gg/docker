@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 #--------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ source="https://dev.azure.com/bunjee/docker/_apis/build/builds/$artifact/artifac
 # Functions
 #--------------------------------------------------------------------------------------------------
 
-function getSource
+getSource()
 {
     curl -L -o artifacts.json $1
 
@@ -73,6 +73,12 @@ echo "EXTRACTING $1"
 unzip -q artifact.zip
 
 rm artifact.zip
+
+mv $1/$1.tar ..
+
+rm -rf $1
+
+ls -la
 
 #--------------------------------------------------------------------------------------------------
 # Load
