@@ -60,13 +60,9 @@ unzip -q artifact.zip
 
 rm artifact.zip
 
-ls -la
-
 mv $1/$1.tar .
 
 rm -rf $1
-
-ls -la
 
 #--------------------------------------------------------------------------------------------------
 # Load
@@ -75,6 +71,6 @@ ls -la
 echo ""
 echo "LOADING $1"
 
-docker load < $1.tar
+sudo docker load < $1.tar
 
 rm $1.tar
