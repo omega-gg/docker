@@ -9,6 +9,7 @@ jobs:
   steps:
   - bash: |
       docker build --compress --no-cache -t debian-vlc-android debian-vlc-android
+      docker system prune -f
       docker save debian-vlc-android > debian-vlc-android.tar
   - publish: $(System.DefaultWorkingDirectory)/debian-vlc-android.tar
     artifact: debian-vlc-android
