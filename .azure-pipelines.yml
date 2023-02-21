@@ -9,7 +9,7 @@ jobs:
   steps:
   - bash: |
       cd script
-      sh build.sh ubuntu_amd64_18-04 ubuntu_amd64_18-04 amd64/ubuntu:18.04
+      sh build.sh -c ubuntu_amd64_18-04 -i ubuntu_amd64_18-04 amd64/ubuntu:18.04
 
 #- job: debian_vlc_android
 #  pool:
