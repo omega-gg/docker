@@ -3,13 +3,13 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: ubuntu_amd64_18-04
+- job: ubuntu_amd64_18_04
   pool:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
       cd script
-      sh build.sh -c ubuntu_amd64_18-04 -i ubuntu_amd64_18-04 amd64/ubuntu:18.04
+      sh build.sh -c ubuntu_amd64_18_04 -i ubuntu_amd64_18_04 amd64/ubuntu:18.04
 
 #- job: debian_vlc_android
 #  pool:
