@@ -92,7 +92,6 @@ RUN apt-get update &&\
  apt-get clean &&\
  dpkg-divert --local --rename --add /sbin/udevadm &&\
  ln -s /bin/true /sbin/udevadm
-RUN sudo mkdir /sys/fs/cgroup/systemd
 RUN systemctl enable snapd
 VOLUME ["/sys/fs/cgroup"]
 STOPSIGNAL SIGRTMIN+3
@@ -117,27 +116,19 @@ $SUDO docker run \
     -d $IMGNAME || clean_up
 
 # wait for snapd to start
-sleep 30
-
-#TIMEOUT=100
-#SLEEP=0.1
-#echo -n "Waiting up to $(($TIMEOUT/10)) seconds for snapd startup "
-#while [ "$($SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded >/dev/null 2>&1; echo $?')" != "0" ]; do
-#    echo -n "."
-#    sleep $SLEEP || clean_up
-#    if [ "$TIMEOUT" -le "0" ]; then
-#        echo " Timed out!"
-#        clean_up
-#    fi
-#    TIMEOUT=$(($TIMEOUT-1))
-#done
+TIMEOUT=100
+SLEEP=0.1
+echo -n "Waiting up to $(($TIMEOUT/10)) seconds for snapd startup "
+while [ "$($SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded >/dev/null 2>&1; echo $?')" != "0" ]; do
+    echo -n "."
+    sleep $SLEEP || clean_up
+    if [ "$TIMEOUT" -le "0" ]; then
+        echo " Timed out!"
+        clean_up
+    fi
+    TIMEOUT=$(($TIMEOUT-1))
+done
 echo " done"
-
-echo $IMGNAME
-echo $CONTNAME
-
-$SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded'
-$SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.service'
 
 $SUDO docker exec $CONTNAME snap install core --edge || clean_up
 echo "container $CONTNAME started ..."
