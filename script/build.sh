@@ -92,6 +92,7 @@ RUN apt-get update &&\
  apt-get clean &&\
  dpkg-divert --local --rename --add /sbin/udevadm &&\
  ln -s /bin/true /sbin/udevadm
+RUN mkdir /sys/fs/cgroup/systemd
 RUN systemctl enable snapd
 VOLUME ["/sys/fs/cgroup"]
 STOPSIGNAL SIGRTMIN+3
@@ -135,7 +136,6 @@ echo " done"
 echo $IMGNAME
 echo $CONTNAME
 
-$SUDO docker exec $CONTNAME sh -c 'sudo mkdir /sys/fs/cgroup/systemd'
 $SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded'
 $SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.service'
 
