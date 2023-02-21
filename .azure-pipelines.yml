@@ -10,8 +10,7 @@ jobs:
   - bash: |
       cd script
       sh build.sh -c ubuntu_amd64_18_04 -i ubuntu_amd64_18_04 amd64/ubuntu:18.04
-      docker run -d --name ubuntu -v $PWD:/HelloSky ubuntu_amd64_18_04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "snap list"
+      docker exec -t ubuntu_amd64_18_04 bash -c "snap list"
 
 #- job: debian_vlc_android
 #  pool:
