@@ -100,6 +100,8 @@ EOF
     $SUDO docker build -t $IMGNAME --force-rm=true --rm=true $BUILDDIR || clean_up
 fi
 
+sudo mkdir /sys/fs/cgroup/systemd
+
 # start the detached container
 $SUDO docker run \
     --name=$CONTNAME \
@@ -116,7 +118,7 @@ $SUDO docker run \
     -d $IMGNAME || clean_up
 
 # wait for snapd to start
-sleep 30
+sleep 10
 
 #TIMEOUT=100
 #SLEEP=0.1
