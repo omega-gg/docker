@@ -116,7 +116,7 @@ $SUDO docker run \
     -d $IMGNAME || clean_up
 
 # wait for snapd to start
-sleep 10
+sleep 30
 
 #TIMEOUT=100
 #SLEEP=0.1
@@ -135,7 +135,8 @@ echo " done"
 echo $IMGNAME
 echo $CONTNAME
 
-$SUDO docker exec $CONTNAME systemctl status snapd.service
+$SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded'
+$SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.service'
 
 $SUDO docker exec $CONTNAME snap install core --edge || clean_up
 echo "container $CONTNAME started ..."
