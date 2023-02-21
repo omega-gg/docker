@@ -132,7 +132,10 @@ sleep 10
 #done
 echo " done"
 
-$SUDO docker exec systemctl status snapd.service
+echo $IMGNAME
+echo $CONTNAME
+
+$SUDO docker exec $CONTNAME systemctl status snapd.service
 
 $SUDO docker exec $CONTNAME snap install core --edge || clean_up
 echo "container $CONTNAME started ..."
