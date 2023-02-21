@@ -9,8 +9,7 @@ jobs:
   steps:
   - bash: |
       cd script
-      sh build.sh -c ubuntu_amd64_18_04 -i ubuntu_amd64_18_04 amd64/ubuntu:18.04
-      docker exec -t ubuntu_amd64_18_04 bash -c "snap list"
+      sh build.sh
 
 #- job: debian_vlc_android
 #  pool:

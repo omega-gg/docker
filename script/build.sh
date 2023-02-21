@@ -9,7 +9,7 @@ set -e
 
 CONTNAME=snappy
 IMGNAME=snapd
-RELEASE=$5
+RELEASE=18.04
 
 SUDO=""
 if [ -z "$(id -Gn|grep docker)" ] && [ "$(id -u)" != "0" ]; then
@@ -66,6 +66,9 @@ while [ $# -gt 0 ]; do
                -h|--help)
                        usage
                        ;;
+               *)
+                       usage
+                       ;;
        esac
        shift
 done
@@ -78,7 +81,7 @@ fi
 
 if [ -z "$($SUDO docker images|grep $IMGNAME)" ]; then
     cat << EOF > $BUILDDIR/Dockerfile
-FROM $RELEASE
+FROM ubuntu:$RELEASE
 ENV container docker
 ENV PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 ENV LANG C.UTF-8
@@ -113,7 +116,7 @@ $SUDO docker run \
     -d $IMGNAME || clean_up
 
 # wait for snapd to start
-TIMEOUT=1000
+TIMEOUT=100
 SLEEP=0.1
 echo -n "Waiting up to $(($TIMEOUT/10)) seconds for snapd startup "
 while [ "$($SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded >/dev/null 2>&1; echo $?')" != "0" ]; do
