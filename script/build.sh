@@ -100,8 +100,6 @@ EOF
     $SUDO docker build -t $IMGNAME --force-rm=true --rm=true $BUILDDIR || clean_up
 fi
 
-sudo mkdir /sys/fs/cgroup/systemd
-
 # start the detached container
 $SUDO docker run \
     --name=$CONTNAME \
@@ -118,7 +116,7 @@ $SUDO docker run \
     -d $IMGNAME || clean_up
 
 # wait for snapd to start
-sleep 10
+sleep 30
 
 #TIMEOUT=100
 #SLEEP=0.1
@@ -137,6 +135,7 @@ echo " done"
 echo $IMGNAME
 echo $CONTNAME
 
+$SUDO docker exec $CONTNAME sh -c 'sudo mkdir /sys/fs/cgroup/systemd'
 $SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.seeded'
 $SUDO docker exec $CONTNAME sh -c 'systemctl status snapd.service'
 
