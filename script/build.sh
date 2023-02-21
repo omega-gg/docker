@@ -66,9 +66,6 @@ while [ $# -gt 0 ]; do
                -h|--help)
                        usage
                        ;;
-               *)
-                       usage
-                       ;;
        esac
        shift
 done
