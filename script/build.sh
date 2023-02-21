@@ -116,7 +116,7 @@ $SUDO docker run \
     -d $IMGNAME || clean_up
 
 # wait for snapd to start
-sleep 100
+sleep 10
 
 #TIMEOUT=100
 #SLEEP=0.1
